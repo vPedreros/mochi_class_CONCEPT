@@ -9487,6 +9487,17 @@ int perturbations_print_variables(double tau,
     /* ^For use with CONCEPT^ */
     /**************************/
     
+    /************************/
+    /* For use with CONCEPT */
+    /************************/
+    /* Include theta_tot in perturbation output */
+    double rho_plus_p_tot = -2./3.*pvecback[pba->index_bg_H_prime]/a + 2./3.*pba->K/(a*a);
+    double theta_tot = ppw->rho_plus_p_theta/rho_plus_p_tot;
+    class_store_double(dataptr, theta_tot, _TRUE_, storeidx);
+    /**************************/
+    /* ^For use with CONCEPT^ */
+    /**************************/
+
     if (pba->has_smg == _TRUE_) {
       class_call(
         perturbations_print_variables_smg(ppr, pba, ppt,  ppw, k, tau, dataptr, &storeidx),
