@@ -6024,6 +6024,20 @@ int input_default_params(struct background *pba,
   /** 9.b.4) Shooting parameter */
   pba->shooting_failed = _FALSE_;
 
+  /************************/
+  /* For use with CONCEPT */
+  /************************/
+  char * CONCEPT_CLASS_CALL = getenv("CONCEPT_CLASS_CALL");
+  if (CONCEPT_CLASS_CALL == NULL) {
+    pba->node = 0;
+    pba->num_threads = -1;
+    pba->message = (char*)malloc(1*sizeof(char));
+    pba->message[0] = '\0';
+  }
+  /**************************/
+  /* ^For use with CONCEPT^ */
+  /**************************/
+
   /**
    * Deafult to input_read_parameters_heating
    */

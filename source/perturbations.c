@@ -927,6 +927,20 @@ int perturbations_init(
 
 #ifdef _OPENMP
 
+/************************/
+/* For use with CONCEPT */
+/************************/
+if (pba->num_threads != -1) {
+  /**
+   * Explicitly set the number of OpenMP threads.
+   * Note that the value of OMP_NUM_THREADS is now completely ignored.
+   */
+  omp_set_num_threads(pba->num_threads);
+}
+/**************************/
+/* ^For use with CONCEPT^ */
+/**************************/
+
 #pragma omp parallel
   {
     number_of_threads = omp_get_num_threads();
@@ -1005,6 +1019,24 @@ int perturbations_init(
         /* integrating backwards is slightly more optimal for parallel runs */
         //for (index_k = 0; index_k < ppt->k_size; index_k++) {
         for (index_k = ppt->k_size[index_md]-1; index_k >=0; index_k--) {
+          
+          /************************/
+          /* For use with CONCEPT */
+          /************************/
+          if ((abort == _FALSE_) && (pba->message[0] != '\0')) {
+            printf(
+              pba->message,
+              pba->node,
+              thread,
+              ppt->k[index_md][index_k],
+              ppt->k_size[index_md] - 1 - index_k,
+              ppt->k_size[index_md] - 1
+            );
+            fflush(stdout);
+          }
+          /**************************/
+          /* ^For use with CONCEPT^ */
+          /**************************/
 
           if ((ppt->perturbations_verbose > 2) && (abort == _FALSE_)) {
             printf("evolving mode k=%e /Mpc  (%d/%d)",ppt->k[index_md][index_k],index_k+1,ppt->k_size[index_md]);
@@ -9321,7 +9353,15 @@ int perturbations_print_variables(double tau,
     }
 
     /* converting synchronous variables to newtonian ones */
-    if (ppt->gauge == synchronous) {
+
+    /************************/
+    /* For use with CONCEPT */
+    /************************/
+    /* Do not convert to Newtonian gauge */
+    if (0 == 1) {  /* (ppt->gauge == synchronous) { */
+    /**************************/
+    /* ^For use with CONCEPT^ */
+    /**************************/
 
       /* metric perturbations (not only _smg) */
       h_prime = ppw->pvecmetric[ppw->index_mt_h_prime];
@@ -9498,6 +9538,16 @@ int perturbations_print_variables(double tau,
     /* ^For use with CONCEPT^ */
     /**************************/
     
+    /************************/
+    /* For use with CONCEPT */
+    /************************/
+    /* Include h_prime in perturbation output */
+    class_store_double(dataptr, pvecmetric[ppw->index_mt_h_prime],
+      ppt->gauge == synchronous, storeidx);
+    /**************************/
+    /* ^For use with CONCEPT^ */
+    /**************************/
+
     /************************/
     /* For use with CONCEPT */
     /************************/
