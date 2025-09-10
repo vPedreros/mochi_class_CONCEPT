@@ -9060,7 +9060,7 @@ int perturbations_print_variables(double tau,
 	 * not taken care off correctly.
 	 */
 	class_call(
-	  perturb_derivs(tau, y, dy, parameters_and_workspace, error_message),
+	  perturbations_derivs(tau, y, dy, parameters_and_workspace, error_message),
 	  error_message,  
 	  error_message); 
     /**************************/
