@@ -308,7 +308,16 @@ struct perturbations
   short has_source_k2gamma_Nb; /**< do we need source for metric fluctuation gamma in Nbody gauge? */
   short has_source_x_smg;     /**< do we need source for scalar field smg? */
   short has_source_x_prime_smg;/**< do we need source for scalar field smg prime? */
-
+  /************************/
+  /* For use with CONCEPT */
+  /************************/
+  /*vp: Needed to output delta_smg and theta_smg*/
+  short has_source_delta_smg;
+  short has_source_theta_smg;
+  short has_source_shear_smg;
+  /**************************/
+  /* ^For use with CONCEPT^ */
+  /**************************/
 
   /* remember that the temperature source function includes three
      terms that we call 0,1,2 (since the strategy in class v > 1.7 is
@@ -630,6 +639,15 @@ struct perturbations_workspace
   int index_mt_rsa_p_smg;    /**< correction to the evolution of ur and g species in radiation streaming approximation due to non-negligible pressure at late-times*/
   int mt_size;                /**< size of metric perturbation vector */
 
+  /************************/
+  /* For use with CONCEPT */
+  /************************/
+  int index_mt_delta_smg;
+  int index_mt_theta_smg;
+  int index_mt_shear_smg;
+  /************************/
+  /*^For use with CONCEPT^*/
+  /************************/
   //@}
 
   /** @name - value at a given time of all background/perturbed
@@ -690,6 +708,19 @@ struct perturbations_workspace
   double S_fld;                /**< S quantity sourcing Gamma_prime evolution in PPF scheme (equivalent to eq. 15 in 0808.3125) */
   double Gamma_prime_fld;      /**< Gamma_prime in PPF scheme (equivalent to eq. 14 in 0808.3125) */
 
+  /************************/
+  /* For use with CONCEPT */
+  /************************/
+  double delta_rho_smg;
+  double delta_p_smg;
+  double rho_plus_p_theta_smg;
+  double rho_plus_p_shear_smg;
+  double delta_smg;
+  double theta_smg;
+  double shear_smg;
+  /************************/
+  /*^For use with CONCEPT^*/
+  /************************/
   FILE * perturbations_output_file; /**< filepointer to output file*/
   int index_ikout;            /**< index for output k value (when k_output_values is set) */
 
